@@ -10,11 +10,14 @@ def passgen():
     c_time = time.time()
     return ''.join(digits) , c_time
 
-command = input("Press c to create a password: ")
-if command == "c":
-      p,t = passgen()
-else:
-    print("Invalid input")
+while True:
+    command = input("Press c to create a password: ")
+    if command == "c":
+          p,t = passgen()
+          break
+    else:
+        print("Invalid input")
+
 password = str(input("Enter password: "))
 if time.time()-t < 60:
     if password == p:
