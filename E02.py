@@ -4,28 +4,31 @@
 import time
 import random
 
+
 def passgen():
-    digits = [str(random.randint(0,9)) for i in range(7)]
-    print(''.join(digits))
-    c_time = time.time()
-    return ''.join(digits) , c_time
+    psw = ''.join(str(num) for num in (random.choices(range(10), k=8)))
+    return psw
 
+
+passgen()
+ct = 0
+timeout = 60
 while True:
-    command = input("Press c to create a password: ")
-    if command == "c":
-          p,t = passgen()
-          break
+    if time.time() > ct + timeout:
+        f = 0
+        p = (passgen())
+        print(p)
+        ct = time.time()
+    password = str(input("Enter password: "))
+    if time.time() - ct < timeout:
+        if password == p:
+            print("Done!")
+            break
+        else:
+            print("Incorrect password")
+            f += 1
+            if f == 3:
+                print("Try again later")
+                break
     else:
-        print("Invalid input")
-
-password = str(input("Enter password: "))
-if time.time()-t < 60:
-    if password == p:
-        print("Done!")
-    else:
-        print("Incorrect password")
-else:
-    print("Your time is up. The code has expired.")
-
-
-
+        print("Your time is up. The code has expired. Here is your new code: ")
